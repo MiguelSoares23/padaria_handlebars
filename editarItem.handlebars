@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Item</title>
+</head>
+<body>
+    <h2>Editar item</h2>
+
+    <form action="/itens/{{pessoa.id}}/editar" method="post">
+        <input type="text" name="nome" value="{{item.nome}}" required>
+        <input type="text" name="preco" value="{{item.preco}}">
+        <button type="submit">Salvar</button>
+    </form>
+
+    <a href="/itens">Voltar</a>
+</body>
+</html>
