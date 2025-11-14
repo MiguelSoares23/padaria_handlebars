@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Itens</title>
+</head>
+<body>
+    <h1>Listar itens</h1>
+
+    <ul>
+        {{#each itens}}
+        <li>
+            <a href="/itens/{{id}}">nome: {{nome}} </a>|
+            <a href="/itens/{{id}}">preço: {{preco}} </a>|
+            <a href="/itens/{{id}}/editar">editar</a>
+
+            <form action="/itens/excluir/{{id}}" method="post" style="display:inline;">
+            <button type="submit" onclick="return confirm('Confirma exclusão?')">excluir</button>
+            </form>
+        </li>
+    {{/each}}
+    </ul>
+    <a href="/">Voltar</a>
+</body>
+</html>

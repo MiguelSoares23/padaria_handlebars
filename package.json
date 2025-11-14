@@ -1,10 +1,10 @@
 {
   "name": "padaria_handlebars",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +12,14 @@
   "dependencies": {
     "express": "^5.1.0",
     "express-handlebars": "^8.0.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiguelSoares23/padaria_handlebars.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MiguelSoares23/padaria_handlebars/issues"
+  },
+  "homepage": "https://github.com/MiguelSoares23/padaria_handlebars#readme",
+  "description": ""
 }

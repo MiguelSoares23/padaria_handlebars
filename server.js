@@ -39,14 +39,14 @@ app.post('/itens/', (req, res) => {
     }
 
     itens.push(novoItem);
-    res.render('ListarItens', { itens })
+    res.render('listarItens', { itens })
 });
 
 app.get('/itens/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const item = itens.find(p => p.id === id);
 
-    if (itens) {
+    if (item) {
         res.render('detalharItem', { item });
     }else{
        res.status(404).send('Item não encontrado');
@@ -69,7 +69,16 @@ app.post('/itens/:id/editar/', (req, res) => {
 
     item.nome = req.body.nome;
     item.preco = req.body.preco;
-    res.render('listarItem', { item })
+    res.render('listarItens', { itens })
+});
+
+app.post('/itens/excluir/:id/', (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = itens.findIndex(p => p.id === id);
+    if(index === -1) return res.status(404).send('Item não encontrado')
+
+    itens.splice(index, 1);
+    res.redirect('/itens');
 });
 
 
