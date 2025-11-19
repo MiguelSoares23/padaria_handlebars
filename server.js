@@ -89,8 +89,8 @@ let funcionarios = [
     {id: 3, nome: "Juca", funcao: "Balconista"}
 ];
 
-app.get('/homeFuncionario', (req, res) => {
-    res.render('homeFuncionario', { funcionarios });
+app.get('/homeFuncionarios', (req, res) => {
+    res.render('homeFuncionarios', { funcionarios });
 });
 
 app.get('/funcionarios', (req, res) => {
@@ -110,8 +110,39 @@ app.post('/funcionarios/', (req, res) => {
     }
 
     funcionarios.push(NovoFuncionario);
-    res.render('listarFuncionario');
-})
+    res.render('listarFuncionario', { funcionarios});
+});
+
+app.get('/funcionarios/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const funcionario = funcionarios.find(p => p.id === id);
+
+    if (funcionarios) {
+        res.render('detalharFuncionarios', { funcionario});
+    } else {
+        res.status(404).send('Funcionário não encontrado');
+    }
+});
+
+app.get('/funcionarios/:id/editar', (req, res) => {
+    const id = parseInt(req.params.id);
+    const funcionario = funcionarios.find(p => p.id === id);
+    if(!funcionario) return res.status(404).send('Funcionário não encontrado')
+    
+    res.render('editarFuncionarios', { funcionario });
+});
+
+app.post('/funcionario/:id/editar/', (req, res) => {
+    const id = parseInt(req.params.id);
+    const funcionario = funcionarios.find(p => p.id === id);
+
+    if(!funcionario) return res.status(404).send('Funcionário não encontrado')
+
+        funcionario.nome = req.body.nome;
+        funcionario.funcao = req.body.funcao;
+        res.render('listarFuncionarios', { funcionarios })
+});
+
 
             
 

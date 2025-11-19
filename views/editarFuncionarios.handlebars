@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Funcionários</title>
+</head>
+<body>
+    <h2>Editar Funcionário</h2>
+
+    <form action="/funcionarios/{{funcionario.id}}/editar" method="post">
+    <input type="text" name="nome" value="{{funcionario.nome}}" required>
+    <input type="text" name="função" value="{{funcionario.funcao}}">
+    <button type="submit">Salvar</button>
+    </form>
+
+    <a href="/homeFuncionarios">Voltar</a>
+</body>
+</html>
