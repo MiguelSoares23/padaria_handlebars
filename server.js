@@ -81,6 +81,40 @@ app.post('/itens/excluir/:id/', (req, res) => {
     res.redirect('/itens');
 });
 
+//funcionario
+
+let funcionarios = [
+    {id: 1, nome: "Miguel", funcao: "Padeiro"},
+    {id: 2, nome: "Jonathan", funcao: "Forneiro"},
+    {id: 3, nome: "Juca", funcao: "Balconista"}
+];
+
+app.get('/homeFuncionario', (req, res) => {
+    res.render('homeFuncionario', { funcionarios });
+});
+
+app.get('/funcionarios', (req, res) => {
+    res.render('listarFuncionarios', { funcionarios })
+});
+
+app.get('/funcionarios/novo', (req, res) => res.render('cadastrarFuncionario'));
+
+app.post('/funcionarios/', (req, res) => {
+    const nome = req.body.nome;
+    const funcao = req.body.funcao;
+
+    const NovoFuncionario = {
+        id: funcionarios.length + 1,
+        nome: nome,
+        funcao: funcao
+    }
+
+    funcionarios.push(NovoFuncionario);
+    res.render('listarFuncionario');
+})
+
+            
+
 
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);

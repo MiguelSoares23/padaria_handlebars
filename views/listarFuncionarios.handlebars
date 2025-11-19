@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Funcionários</title>
+</head>
+<body>
+    <h1>Lista de Funcionários</h1>
+
+    <ul>
+        {{#each funcionarios}}
+        <li>
+            <a href="/funcionarios/{{id}}">nome: {{nome}}</a>|
+            <a href="/funcionarios/{{id}}">função: {{funcao}}</a>|
+        </li>
+        {{/each}}
+    </ul>
+
+    <a href="/homeFuncionario">Voltar</a>
+</body>
+</html>
