@@ -13,6 +13,11 @@
         <li>
             <a href="/funcionarios/{{id}}">nome: {{nome}}</a>|
             <a href="/funcionarios/{{id}}">função: {{funcao}}</a>|
+            <a href="/funcionarios/{{id}}/editar">Editar</a>
+
+            <form action="/funcionarios/excluir/{{id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Confirma exclusão?')">excluir</button>
+            </form>
         </li>
         {{/each}}
     </ul>

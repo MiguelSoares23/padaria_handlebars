@@ -16,8 +16,12 @@ let itens = [
     {id: 3, nome: "Salgadinho de queijo", preco: 5.50}
 ];
 
+app.get('/homeItens', (req, res) => {
+    res.render('homeItens', {itens});
+})
+
 app.get('/', (req, res) => {
-    res.render('home', { itens });
+    res.render('home');
 });
 
 app.get('/itens', (req, res) => {
@@ -110,7 +114,7 @@ app.post('/funcionarios/', (req, res) => {
     }
 
     funcionarios.push(NovoFuncionario);
-    res.render('listarFuncionario', { funcionarios});
+    res.render('listarFuncionarios', { funcionarios});
 });
 
 app.get('/funcionarios/:id', (req, res) => {
@@ -132,19 +136,29 @@ app.get('/funcionarios/:id/editar', (req, res) => {
     res.render('editarFuncionarios', { funcionario });
 });
 
-app.post('/funcionario/:id/editar/', (req, res) => {
+app.post('/funcionarios/:id/editar/', (req, res) => {
     const id = parseInt(req.params.id);
     const funcionario = funcionarios.find(p => p.id === id);
 
     if(!funcionario) return res.status(404).send('Funcionário não encontrado')
 
-        funcionario.nome = req.body.nome;
-        funcionario.funcao = req.body.funcao;
-        res.render('listarFuncionarios', { funcionarios })
+    funcionario.nome = req.body.nome;
+    funcionario.funcao = req.body.funcao;
+    res.render('listarFuncionarios', { funcionarios })
 });
 
+app.post('/funcionarios/excluir/:id/', (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = funcionarios.findIndex(p => p.id === id);
+    if (index === -1) return res.status(404).send("Funcionário não encontrado")
 
-            
+    funcionarios.splice(index, 1);
+    res.redirect('/funcionarios');
+});
+
+//Cliente
+
+
 
 
 app.listen(port, () => {
