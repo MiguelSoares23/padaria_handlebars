@@ -158,7 +158,71 @@ app.post('/funcionarios/excluir/:id/', (req, res) => {
 
 //Cliente
 
+let clientes = [
+    {id: 1, nome: "João"},
+    {id: 2, nome: "Maria"},
+    {id: 3, nome: "Pedro"}
+];
 
+app.get('/homeClientes', (req, res) => {
+    res.render('homeClientes', { clientes });
+});
+
+app.get('/clientes', (req, res) => {
+    res.render('listarClientes', { clientes })
+});
+
+app.get('/clientes/novo', (req, res) => res.render('cadastrarClientes'));
+
+app.post('/clientes/', (req, res) => {
+    const nome = req.body.nome;
+
+    const novoCliente = {
+        id: clientes.length + 1,
+        nome: nome
+    }
+
+    clientes.push(novoCliente);
+    res.render('listarClientes', { clientes })
+});
+
+app.get('/clientes/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const cliente = clientes.find(p => p.id === id);
+
+    if (cliente) {
+        res.render('detalharClientes', { cliente });
+    } else {
+        res.status(404).send('Cliente não encontrado');
+    }
+});
+
+app.get('/clientes/:id/editar', (req, res) => {
+    const id = parseInt(req.params.id);
+    const cliente = clientes.find(p => p.id === id);
+    if (!cliente) return res.status(404).send('cliente não encontrado')
+
+    res.render('editarClientes', { cliente });
+});
+
+app.post('/clientes/:id/editar/', (req, res) => {
+    const id = parseInt(req.params.id);
+    const cliente = clientes.find(p => p.id === id);
+
+    if (!cliente) return res.status(404).send('cliente não encontrado')
+
+    cliente.nome = req.body.nome;
+    res.render('listarClientes', { clientes })
+});
+
+app.post('/clientes/excluir/:id/', (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = clientes.findIndex(p => p.id === id);
+    if (index === -1) return res.status(404).send('cliente não encontrado')
+
+    clientes.splice(index, 1);
+    res.redirect('/clientes');
+});
 
 
 app.listen(port, () => {
