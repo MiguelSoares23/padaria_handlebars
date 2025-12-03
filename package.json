@@ -10,8 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0",
-    "express-handlebars": "^8.0.4"
+    "body-parser": "^2.2.1",
+    "express": "^5.2.1",
+    "express-handlebars": "^8.0.4",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7"
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,3 @@
-Miguel Cristiano da Silva Soares
-Jonathan Leonardo Silva de Carvalho
-Juan Pietro Silva de Oliveira 
+Miguel Cristiano da Silva Soares.
+Estela Vitória Cândido Ribeiro.
+Querén-Hapuque Araújo do Céu de Moraes Ferreira.
