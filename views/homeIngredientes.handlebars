@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Ingredientes</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
-<body>
-    <h1>Ingredientes</h1>
+<body class="bg-light">
 
-    <nav>
-        <a href="/ingredientes">Listar Ingredientes</a>
-        <a href="/ingredientes/novo">Cadastrar Ingrediente</a>
-    </nav>
+    <div class="container text-center mt-5">
 
-    <h4><a href="/">Voltar</a></h4>
+        <h1 class="mb-4">Ingredientes</h1>
+
+        <div class="d-flex flex-column gap-3 col-md-4 mx-auto">
+
+            <a class="btn btn-primary" href="/ingredientes">Listar Ingredientes</a>
+            <a class="btn btn-success" href="/ingredientes/novo">Cadastrar Ingrediente</a>
+
+        </div>
+
+        <a href="/" class="btn btn-link mt-4">Voltar</a>
+
+    </div>
+
 </body>
 </html>

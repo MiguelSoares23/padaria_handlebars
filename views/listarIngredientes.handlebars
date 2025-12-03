@@ -1,27 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Ingredientes</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
-<body>
-    <h1>Listar Ingredientes</h1>
+<body class="bg-light">
 
-    <ul>
-        {{#each ingredientes}}
-        <li>
-            <a href="/ingredientes/{{id}}">nome: {{nome}}</a> |
-            <a href="/ingredientes/{{id}}">quantidade: {{quantidade}}</a> |
-            <a href="/ingredientes/{{id}}/editar">editar</a>
+    <div class="container mt-5">
 
-            <form action="/ingredientes/excluir/{{id}}" method="post" style="display:inline;">
-                <button type="submit" onclick="return confirm('Confirma exclusão?')">excluir</button>
-            </form>
-        </li>
-        {{/each}}
-    </ul>
+        <h2 class="text-center mb-4">Lista de Ingredientes</h2>
 
-    <h4><a href="/homeIngredientes">Voltar</a></h4>
+        <ul class="list-group shadow">
+
+            {{#each ingredientes}}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                <div>
+                    <a href="/ingredientes/{{id}}" class="fw-bold text-decoration-none">
+                        {{nome}}
+                    </a>
+                    <br>
+                    <small class="text-muted">Quantidade: {{quantidade}}</small>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <a href="/ingredientes/{{id}}/editar" class="btn btn-warning btn-sm">Editar</a>
+
+                    <form action="/ingredientes/excluir/{{id}}" method="post">
+                        <button class="btn btn-danger btn-sm"
+                            onclick="return confirm('Confirma exclusão?')">Excluir</button>
+                    </form>
+                </div>
+
+            </li>
+            {{/each}}
+
+        </ul>
+
+        <a href="/homeIngredientes" class="btn btn-link mt-4">Voltar</a>
+
+    </div>
+
 </body>
 </html>
