@@ -5,6 +5,9 @@ const db = require('./config/database');
 const Item =  require('./models/item.model');
 const Funcionario = require('./models/funcionario.model');
 const Cliente = require('./models/cliente.model');
+const Fornecedor = require('./models/fornecedor.model');
+const Ingrediente = require('./models/ingrediente.model');
+const Equipamento = require('./models/equipamento.model');
 
 
 const app = express();
@@ -14,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.engine('handlebars', exphbs.engine({ defaultLayout: false }));
+app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 let itens = [
@@ -347,6 +350,289 @@ app.post('/clientes/excluir/:id', async (req, res) => {
         res.status(500).send('Erro ao excluir cliente');
     }
 });
+
+// FORNECEDOR
+
+let fornecedores = [
+    { id: 1, nome: "Fornecedor1", telefone: "0000-0000" }
+];
+
+app.get('/homeFornecedores', (req, res) => {
+    res.render('homeFornecedores', { fornecedores });
+});
+
+
+app.get('/fornecedores', async (req, res) => {
+    try {
+        let fornecedores = await Fornecedor.findAll({ raw: true });
+        res.render('listarFornecedores', { fornecedores });
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).send('Erro ao buscar fornecedores');
+    }
+});
+
+
+app.get('/fornecedores/novo', (req, res) => {
+    res.render('cadastrarFornecedor');
+});
+
+
+app.post('/fornecedores', async (req, res) => {
+    try {
+        await Fornecedor.create({
+            nome: req.body.nome,
+            telefone: req.body.telefone
+        });
+
+        res.redirect('/fornecedores');
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).send('Erro ao cadastrar fornecedor');
+    }
+});
+
+app.get('/fornecedores/:id', async(req, res) => {
+    
+    try{
+        let fornecedor = await Fornecedor.findByPk(req.params.id, {raw: true});
+
+        res.render('detalharFornecedor', { fornecedor });
+    } catch(e){
+        console.log(e.mensage);
+        res.status(500).send('Erro ao buscar fornecedor');
+    }
+    
+});
+
+app.get('/fornecedores/:id/editar', async(req, res) => {
+    
+    try{
+        let fornecedor = await Fornecedor.findByPk(req.params.id, {raw: true});
+
+        res.render('editarFornecedor', { fornecedor });
+    } catch(e) {
+        console.log(e.mensage);
+        res.status(500).send('Erro ao buscar fornecedor');
+    }
+    
+});
+
+app.post('/fornecedores/:id/editar/', async(req, res) => {
+    
+    try{
+        let fornecedor = await Fornecedor.findByPk(req.params.id);
+
+        fornecedor.nome = req.body.nome;
+        fornecedor.telefone = req.body.telefone;
+        await fornecedor.save();
+
+        res.redirect('/fornecedores')
+    } catch(e){
+        console.log(e.mensage);
+        res.status(500).send('Erro ao editar fornecedor');
+    }
+
+});
+
+app.post('/fornecedores/excluir/:id/', async(req, res) => {
+    
+    try{
+        const fornecedor = await Fornecedor.findByPk(req.params.id);
+
+        await fornecedor.destroy();
+
+        res.redirect('/fornecedores');
+    } catch(e){
+        console.log(e.mensage);
+        res.status(500).send('Erro ao excluir fornecedor');
+    }
+    
+});
+
+//Ingredientes
+
+let ingredientes = [
+    { id: 1, nome: "Farinha", quantidade: "10 kg" }
+];
+
+app.get('/homeIngredientes', (req, res) => {
+    res.render('homeIngredientes', { ingredientes });
+});
+
+
+app.get('/ingredientes', async (req, res) => {
+    try {
+        let ingredientes = await Ingrediente.findAll({ raw: true });
+        res.render('listarIngredientes', { ingredientes });
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).send('Erro ao buscar ingredientes');
+    }
+});
+
+app.get('/ingredientes/novo', (req, res) => {
+    res.render('cadastrarIngrediente');
+});
+
+app.post('/ingredientes', async (req, res) => {
+    try {
+        await Ingrediente.create({
+            nome: req.body.nome,
+            quantidade: req.body.quantidade
+        });
+
+        res.redirect('/ingredientes');
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).send('Erro ao cadastrar ingrediente');
+    }
+});
+
+app.get('/ingredientes/:id', async(req, res) => {
+    
+    try{
+        let ingrediente = await Ingrediente.findByPk(req.params.id, { raw: true });
+        res.render('detalharIngrediente', { ingrediente });
+    } catch(e){
+        console.log(e.message);
+        res.status(500).send('Erro ao buscar ingrediente');
+    }
+});
+
+app.get('/ingredientes/:id/editar', async(req, res) => {
+    
+    try{
+        let ingrediente = await Ingrediente.findByPk(req.params.id, { raw: true });
+
+        res.render('editarIngrediente', { ingrediente });
+    } catch(e) {
+        console.log(e.message);
+        res.status(500).send('Erro ao buscar ingrediente');
+    }
+});
+
+app.post('/ingredientes/:id/editar', async(req, res) => {
+    
+    try{
+        let ingrediente = await Ingrediente.findByPk(req.params.id);
+
+        ingrediente.nome = req.body.nome;
+        ingrediente.quantidade = req.body.quantidade;
+
+        await ingrediente.save();
+
+        res.redirect('/ingredientes');
+    } catch(e){
+        console.log(e.message);
+        res.status(500).send('Erro ao editar ingrediente');
+    }
+});
+
+app.post('/ingredientes/excluir/:id', async(req, res) => {
+    
+    try{
+        const ingrediente = await Ingrediente.findByPk(req.params.id);
+        await ingrediente.destroy();
+
+        res.redirect('/ingredientes');
+    } catch(e){
+        console.log(e.message);
+        res.status(500).send('Erro ao excluir ingrediente');
+    }
+});
+
+//Equipamentos
+
+let equipamentos = [
+    { id: 1, nome: "Batedeira", estado: "Bom" }
+];
+
+app.get('/homeEquipamentos', (req, res) => {
+    res.render('homeEquipamentos', { equipamentos });
+});
+
+
+app.get('/equipamentos', async (req, res) => {
+    try {
+        let equipamentos = await Equipamento.findAll({ raw: true });
+        res.render('listarEquipamentos', { equipamentos });
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).send('Erro ao buscar equipamentos');
+    }
+});
+
+app.get('/equipamentos/novo', (req, res) => {
+    res.render('cadastrarEquipamento');
+});
+
+app.post('/equipamentos', async (req, res) => {
+    try {
+        await Equipamento.create({
+            nome: req.body.nome,
+            estado: req.body.estado
+        });
+
+        res.redirect('/equipamentos');
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).send('Erro ao cadastrar equipamento');
+    }
+});
+
+app.get('/equipamentos/:id', async(req, res) => {
+    
+    try{
+        let equipamento = await Equipamento.findByPk(req.params.id, { raw: true });
+        res.render('detalharEquipamento', { equipamento });
+    } catch(e){
+        console.log(e.message);
+        res.status(500).send('Erro ao buscar equipamento');
+    }
+});
+
+app.get('/equipamentos/:id/editar', async(req, res) => {
+    
+    try{
+        let equipamento = await Equipamento.findByPk(req.params.id, { raw: true });
+        res.render('editarEquipamentos', { equipamento });
+    } catch(e) {
+        console.log(e.message);
+        res.status(500).send('Erro ao buscar equipamento');
+    }
+});
+
+app.post('/equipamentos/:id/editar', async(req, res) => {
+    
+    try{
+        let equipamento = await Equipamento.findByPk(req.params.id);
+
+        equipamento.nome = req.body.nome;
+        equipamento.estado = req.body.estado;
+        await equipamento.save();
+
+        res.redirect('/equipamentos');
+    } catch(e){
+        console.log(e.message);
+        res.status(500).send('Erro ao editar equipamento');
+    }
+});
+
+app.post('/equipamentos/excluir/:id', async(req, res) => {
+    
+    try{
+        const equipamento = await Equipamento.findByPk(req.params.id);
+        await equipamento.destroy();
+
+        res.redirect('/equipamentos');
+    } catch(e){
+        console.log(e.message);
+        res.status(500).send('Erro ao excluir equipamento');
+    }
+});
+
+
 
 
 db.sync().then( ()=>{

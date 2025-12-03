@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Clientes</title>
+    <title>Lista de Equipamentos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -11,34 +11,35 @@
 
 <div class="container mt-5">
 
-    <h1 class="text-center mb-4">Lista de Clientes</h1>
+    <h1 class="text-center mb-4">Lista de Equipamentos</h1>
 
     <ul class="list-group shadow">
 
-        {{#each clientes}}
+        {{#each equipamentos}}
         <li class="list-group-item d-flex justify-content-between align-items-center">
 
             <div>
-                <strong>{{nome}}</strong>
+                <strong>{{nome}}</strong> — <span class="text-muted">{{estado}}</span>
             </div>
 
             <div class="d-flex gap-2">
 
-                <a href="/clientes/{{id}}" class="btn btn-sm btn-info text-white">Detalhes</a>
+                <a href="/equipamentos/{{id}}" class="btn btn-sm btn-info text-white">Detalhes</a>
 
-                <a href="/clientes/{{id}}/editar" class="btn btn-sm btn-warning">Editar</a>
+                <a href="/equipamentos/{{id}}/editar" class="btn btn-sm btn-warning">Editar</a>
 
-                <form action="/clientes/excluir/{{id}}" method="post" onsubmit="return confirm('Confirma exclusão?')">
+                <form action="/equipamentos/excluir/{{id}}" method="post"
+                      onsubmit="return confirm('Confirma exclusão?')">
                     <button class="btn btn-sm btn-danger">Excluir</button>
                 </form>
 
             </div>
-
         </li>
         {{/each}}
+
     </ul>
 
-    <a href="/homeClientes" class="btn btn-link mt-3">Voltar</a>
+    <a href="/homeEquipamentos" class="btn btn-link mt-3">Voltar</a>
 
 </div>
 

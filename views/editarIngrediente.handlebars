@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Ingrediente</title>
+</head>
+<body>
+    <h2>Editar ingrediente</h2>
+
+    <form action="/ingredientes/{{ingrediente.id}}/editar" method="post">
+        <input type="text" name="nome" value="{{ingrediente.nome}}" required>
+        <input type="text" name="quantidade" value="{{ingrediente.quantidade}}" required>
+        <button type="submit">Salvar</button>
+    </form>
+
+    <h4><a href="/ingredientes">Voltar</a></h4>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Ingredientes</title>
+</head>
+<body>
+    <h1>Listar Ingredientes</h1>
+
+    <ul>
+        {{#each ingredientes}}
+        <li>
+            <a href="/ingredientes/{{id}}">nome: {{nome}}</a> |
+            <a href="/ingredientes/{{id}}">quantidade: {{quantidade}}</a> |
+            <a href="/ingredientes/{{id}}/editar">editar</a>
+
+            <form action="/ingredientes/excluir/{{id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Confirma exclusão?')">excluir</button>
+            </form>
+        </li>
+        {{/each}}
+    </ul>
+
+    <h4><a href="/homeIngredientes">Voltar</a></h4>
+</body>
+</html>
