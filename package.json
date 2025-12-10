@@ -25,6 +25,5 @@
   },
   "homepage": "https://github.com/MiguelSoares23/padaria_handlebars#readme",
   "description": "Miguel Cristiano da Silva Soares\r Jonathan Leonardo Silva de Carvalho\r Juan Pietro Silva de Oliveira",
-  "type": "commonjs",
-  "devDependencies": {}
+  "type": "commonjs"
 }

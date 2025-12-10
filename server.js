@@ -493,7 +493,7 @@ app.get('/ingredientes/:id', async(req, res) => {
     
     try{
         let ingrediente = await Ingrediente.findByPk(req.params.id, { raw: true });
-        res.render('detalharIngrediente', { ingrediente });
+        res.render('detalharIngredientes', { ingrediente });
     } catch(e){
         console.log(e.message);
         res.status(500).send('Erro ao buscar ingrediente');
@@ -585,7 +585,7 @@ app.get('/equipamentos/:id', async(req, res) => {
     
     try{
         let equipamento = await Equipamento.findByPk(req.params.id, { raw: true });
-        res.render('detalharEquipamento', { equipamento });
+        res.render('detalharEquipamentos', { equipamento });
     } catch(e){
         console.log(e.message);
         res.status(500).send('Erro ao buscar equipamento');
