@@ -1,15 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhe do item</title>
-</head>
-<body>
-    <h1>informações do item</h1>
-    <h2>nome: {{item.nome}}</h2>
-    <h2>Preço: {{item.preco}}</h2>
+    <title>Detalhar Item</title>
 
-    <h4><a href="/itens">Voltar</a></h4>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4 col-md-6 mx-auto">
+
+        <h2 class="text-center mb-3">Informações do Item</h2>
+
+        <p><strong>Nome:</strong> {{item.nome}}</p>
+        <p><strong>Preço:</strong> {{item.preco}}</p>
+
+        <a href="/itens" class="btn btn-secondary w-100 mt-3">Voltar</a>
+
+    </div>
+</div>
+
 </body>
 </html>

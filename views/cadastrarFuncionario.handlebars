@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastrar Funcionário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Cadastrar Funcionário</h1>
 
-    <form action="/funcionarios/" method="POST">
-        <input type="text" name="nome" placeholder="Nome do funcionário" required>
-        <input type="text" name="funcao" placeholder="Nome da função">
-        <button type="submit">Salvar</button>
-    </form>
+<body class="bg-light">
 
-    <h4><a href="/homeFuncionarios">Voltar</a></h4>
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4">Cadastrar Funcionário</h1>
+
+    <div class="card shadow p-4">
+
+        <form action="/funcionarios" method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <input type="text" name="nome" class="form-control" placeholder="Nome do funcionário" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Função</label>
+                <input type="text" name="funcao" class="form-control" placeholder="Função do funcionário">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Salvar</button>
+        </form>
+
+    </div>
+
+    <div class="text-center mt-3">
+        <a href="/homeFuncionarios" class="btn btn-secondary">Voltar</a>
+    </div>
+
+</div>
+
 </body>
 </html>

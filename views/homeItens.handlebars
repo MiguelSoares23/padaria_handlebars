@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela principal</title>
+    <title>Home Itens</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
-<body>
-    <h1>Itens</h1>
+<body class="bg-light">
 
-    <nav>
-        <a href="/itens">Listar itens</a>
-        <a href="/itens/novo">cadastrar novo item</a>
+<div class="container text-center mt-5">
 
+    <h1 class="mb-4">Itens</h1>
 
-    <h4><a href="/">Voltar</a></h4>
+    <div class="d-flex flex-column gap-3 col-md-4 mx-auto">
 
-    <!--<a href="/">Itens</a>
-    <a href="/homeFuncionários">Funcionários</a>
-    <a href="/homeCliente">Cliente</a>!-->
+        <a class="btn btn-primary" href="/itens">Listar Itens</a>
+        <a class="btn btn-success" href="/itens/novo">Cadastrar Novo Item</a>
+
+    </div>
+
+    <a href="/" class="btn btn-link mt-4">Voltar</a>
+
+</div>
+
 </body>
 </html>
