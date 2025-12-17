@@ -10,6 +10,7 @@ const Ingrediente = require('./models/ingrediente.model');
 const Equipamento = require('./models/equipamento.model');
 const Pedido = require('./models/pedido.model');
 const models = require('./models');
+const { raw } = require('body-parser');
 
 
 const app = express();
@@ -636,31 +637,61 @@ app.post('/equipamentos/excluir/:id', async(req, res) => {
 
 //Produto
 
-let pedido = [
-    {id: 1, cliente: 'miguel'}
-];
+
 
 app.get('/homePedido', (req, res) => {
-    res.render('homePedido', {Pedido});
+    res.render('homePedido', { pedidos });
 });
 
 app.get('/pedido', async(req, res) => {
-    try{
+    
+    let pedidos = await Pedido.findAll({
+        include: { model: Item, as: 'itens' }
+    });
+
+    pedidos = pedidos.map(p => p.get({ plain: true }));
+
+    res.render('listarPedido', { pedidos });
+    
+    
+    /*try{
         let pedido = await Pedido.findAll({raw: true});
 
         res.render('listarPedido', { pedido })
     } catch(e){
         console.log(e.mensage);
         res.status(500).send('Erro ao buscar pedido');
-    }
+    }*/
 });
 
-app.get('/pedido/novo', (req, res) => {
-    res.render("cadastrarPedido");
+app.get('/pedido/novo', async (req, res) => {
+    const itens = await Item.findAll({raw:true});
+    res.render("cadastrarPedido", {itens});
 });
 
 app.post('/pedido/', async(req, res) => {
+    
     try {
+        const { itens } = req.body;
+
+        console.log(req.body);
+
+        const pedido = await Pedido.create();
+
+        const itensSelecionados = await Item.findAll({
+            where: { id: itens }
+        });
+
+        await pedido.addItens(itensSelecionados);
+
+        res.redirect('/pedido');
+    } catch (e) {
+        console.log(e);
+        res.status(500).send('Erro ao salvar pedido');
+    }
+    
+    
+    /*try {
         await Pedido.create({ cliente: req.body.cliente,
 
         });
@@ -669,7 +700,7 @@ app.post('/pedido/', async(req, res) => {
     } catch(e){
         console.log(e.mensage);
         res.status(500).send('Erro ao cadastrar pedido');
-    }
+    }*/
 });
 
 
@@ -702,7 +733,7 @@ app.post('/pedido/:id/editar/', async(req, res) => {
     try{
         let pedido = await Pedido.findByPk(req.params.id);
 
-        pedido.cliente = req.body.cliente;
+    
         await pedido.save();
 
         res.redirect('/pedido')

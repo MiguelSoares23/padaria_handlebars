@@ -19,4 +19,9 @@ Item.belongsToMany(Pedido, {
     through: 'itemPedido',
     foreignKey: 'itemId',
     as: 'pedidos'
-})
+});
+
+module.exports = {
+    Item,
+    Pedido
+}
