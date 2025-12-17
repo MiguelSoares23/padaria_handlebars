@@ -8,6 +8,8 @@ const Cliente = require('./models/cliente.model');
 const Fornecedor = require('./models/fornecedor.model');
 const Ingrediente = require('./models/ingrediente.model');
 const Equipamento = require('./models/equipamento.model');
+const Pedido = require('./models/pedido.model');
+const models = require('./models');
 
 
 const app = express();
@@ -632,7 +634,97 @@ app.post('/equipamentos/excluir/:id', async(req, res) => {
     }
 });
 
+//Produto
 
+let pedido = [
+    {id: 1, cliente: 'miguel'}
+];
+
+app.get('/homePedido', (req, res) => {
+    res.render('homePedido', {Pedido});
+});
+
+app.get('/pedido', async(req, res) => {
+    try{
+        let pedido = await Pedido.findAll({raw: true});
+
+        res.render('listarPedido', { pedido })
+    } catch(e){
+        console.log(e.mensage);
+        res.status(500).send('Erro ao buscar pedido');
+    }
+});
+
+app.get('/pedido/novo', (req, res) => {
+    res.render("cadastrarPedido");
+});
+
+app.post('/pedido/', async(req, res) => {
+    try {
+        await Pedido.create({ cliente: req.body.cliente,
+
+        });
+
+        res.redirect('/pedido');
+    } catch(e){
+        console.log(e.mensage);
+        res.status(500).send('Erro ao cadastrar pedido');
+    }
+});
+
+
+app.get('/pedido/:id', async(req, res) => {
+    
+    try{
+        let pedido = await Pedido.findByPk(req.params.id, {raw: true});
+
+        res.render('detalharPedido', { pedido });
+    } catch(e){
+        console.log(e.mensage);
+        res.status(500).send('Erro ao buscar pedido');
+    }
+});
+
+app.get('/pedido/:id/editar', async(req, res) => {
+    
+    try{
+        let pedido = await Pedido.findByPk(req.params.id, {raw: true});
+
+        res.render('editarPedido', { pedido });
+    } catch(e) {
+        console.log(e.mensage);
+        res.status(500).send('Erro ao buscar pedido')
+    }
+});
+
+app.post('/pedido/:id/editar/', async(req, res) => {
+    
+    try{
+        let pedido = await Pedido.findByPk(req.params.id);
+
+        pedido.cliente = req.body.cliente;
+        await pedido.save();
+
+        res.redirect('/pedido')
+    } catch(e){
+        console.log(e.mensage);
+        res.status(500).send('Erro ao editar pedido');
+    }
+});
+
+app.post('/pedido/excluir/:id/', async(req, res) => {
+    
+    try {
+        const pedido = await Pedido.findByPk(req.params.id);
+
+        await pedido.destroy();
+
+        res.redirect('/pedido');
+    } catch(e){
+        console.log(e.mensage);
+        res.status(500).send('Erro ao excluir pedido');
+    }
+});
 
 
 db.sync().then( ()=>{
