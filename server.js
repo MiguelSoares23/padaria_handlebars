@@ -643,15 +643,19 @@ app.get('/homePedido', (req, res) => {
     res.render('homePedido', { Pedido });
 });
 
-app.get('/pedido', async(req, res) => {
-    
+app.get('/pedido', async (req, res) => {
     let pedidos = await Pedido.findAll({
-        include: { model: Item, as: 'itens' }
+        include: [
+            { model: Cliente, as: 'cliente' },
+            { model: Item, as: 'itens' }
+        ]
     });
 
     pedidos = pedidos.map(p => p.get({ plain: true }));
 
     res.render('listarPedido', { pedidos });
+});
+
     
     
     /*try{
@@ -662,22 +666,25 @@ app.get('/pedido', async(req, res) => {
         console.log(e.mensage);
         res.status(500).send('Erro ao buscar pedido');
     }*/
-});
+
 
 app.get('/pedido/novo', async (req, res) => {
-    const itens = await Item.findAll({raw:true});
-    res.render("cadastrarPedido", {itens});
+    const clientes = await Cliente.findAll({ raw: true });
+    const itens = await Item.findAll({ raw: true });
+
+    res.render('cadastrarPedido', { clientes, itens });
 });
+
 
 app.post('/pedido', async (req, res) => {
     try {
-        let { cliente, itens } = req.body;
+        let { clienteId, itens } = req.body;
 
         if (!Array.isArray(itens)) {
             itens = [itens];
         }
 
-        const pedido = await Pedido.create({ cliente });
+        const pedido = await Pedido.create({ clienteId });
 
         const itensSelecionados = await Item.findAll({
             where: { id: itens }
@@ -691,6 +698,7 @@ app.post('/pedido', async (req, res) => {
         res.status(500).send('Erro ao salvar pedido');
     }
 });
+
 
 
 

@@ -9,6 +9,16 @@ const Ingrediente = require('./ingrediente.model');
 const Equipamento = require('./equipamento.model');
 const Pedido = require('./pedido.model');
 
+Cliente.hasMany(Pedido, {
+    foreignKey: 'clienteId',
+    as: 'pedidos'
+});
+
+Pedido.belongsTo(Cliente, {
+    foreignKey: 'clienteId',
+    as: 'cliente'
+});
+
 Pedido.belongsToMany(Item, {
     through: 'itemPedido',
     foreignKey: 'pedidoId',
@@ -23,5 +33,6 @@ Item.belongsToMany(Pedido, {
 
 module.exports = {
     Item,
-    Pedido
+    Pedido,
+    Cliente
 }
