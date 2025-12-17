@@ -635,12 +635,12 @@ app.post('/equipamentos/excluir/:id', async(req, res) => {
     }
 });
 
-//Produto
+//Pedido
 
 
 
 app.get('/homePedido', (req, res) => {
-    res.render('homePedido', { pedidos });
+    res.render('homePedido', { Pedido });
 });
 
 app.get('/pedido', async(req, res) => {
@@ -669,14 +669,15 @@ app.get('/pedido/novo', async (req, res) => {
     res.render("cadastrarPedido", {itens});
 });
 
-app.post('/pedido/', async(req, res) => {
-    
+app.post('/pedido', async (req, res) => {
     try {
-        const { itens } = req.body;
+        let { cliente, itens } = req.body;
 
-        console.log(req.body);
+        if (!Array.isArray(itens)) {
+            itens = [itens];
+        }
 
-        const pedido = await Pedido.create();
+        const pedido = await Pedido.create({ cliente });
 
         const itensSelecionados = await Item.findAll({
             where: { id: itens }
@@ -686,22 +687,11 @@ app.post('/pedido/', async(req, res) => {
 
         res.redirect('/pedido');
     } catch (e) {
-        console.log(e);
+        console.error(e);
         res.status(500).send('Erro ao salvar pedido');
     }
-    
-    
-    /*try {
-        await Pedido.create({ cliente: req.body.cliente,
-
-        });
-
-        res.redirect('/pedido');
-    } catch(e){
-        console.log(e.mensage);
-        res.status(500).send('Erro ao cadastrar pedido');
-    }*/
 });
+
 
 
 app.get('/pedido/:id', async(req, res) => {

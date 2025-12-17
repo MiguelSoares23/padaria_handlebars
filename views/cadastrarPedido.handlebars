@@ -19,13 +19,14 @@
             <div class="mb-3">
                 <label class="form-label">itens:</label>
                 <select name="itens[]" id="itens" multiple required class="form-select">
-                    {{#each itens}}
-                        <option value="{{id}}">{{nome}} - R$ {{preco}}</option>
-                    {{/each}}
-                </select>
+    {{#each itens}}
+        <option value="{{id}}">{{nome}} - R$ {{preco}}</option>
+    {{/each}}
+</select>
+
                 <br><br>
                 
-                <!--<input type="text" name="cliente" class="form-control" placeholder="Nome do cliente" required>-->
+                <input type="text" name="cliente" class="form-control" placeholder="Nome do cliente" required>
             </div>
 
             <button type="submit" class="btn btn-success w-100">Salvar</button>
